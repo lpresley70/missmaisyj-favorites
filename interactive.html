@@ -144,133 +144,131 @@
   <footer>
     <div>Tip: Upload images to <strong>/Images</strong> and we can swap the placeholders later.</div>
   </footer>
+<script>
+  const viewEl = document.getElementById("view");
+  const tabs = Array.from(document.querySelectorAll(".tab"));
 
-  <script>
-    const viewEl = document.getElementById("view");
-    const tabs = Array.from(document.querySelectorAll(".tab"));
-
-    const VIEWS = {
-      maisy: {
-        title: "Maisy Collection (storybook + keepsake)",
-        cards: [{
-  title: "Storybook Maisy Onesie",
-  text: "Boutique, gentle watercolor character pieces.",
-  image: "Images/maisy-onesie.jpg"
-},
+  const VIEWS = {
+    maisy: {
+      title: "Maisy Collection (storybook + keepsake)",
+      cards: [
         {
-  title: "Garden Maisy",
-  text: "Soft overalls + calm neutral tones.",
-  image: "Images/garden-maisy.jpg"
-},
-        ]
-      },
-daisy: {
-  title: "Daisy Collection (everyday + classic florals)",
-  cards: [
-    {
-      title: "Daisy Floral Onesie",
-      text: "Simple, timeless all-over daisy designs.",
-      image: "Images/daisy-onesie.jpg"
+          title: "Storybook Maisy Onesie",
+          text: "Boutique, gentle watercolor character pieces.",
+          image: "Images/maisy-onesie.jpg"
+        },
+        {
+          title: "Garden Maisy",
+          text: "Soft overalls + calm neutral tones.",
+          image: "Images/garden-maisy.jpg"
+        }
+      ]
     },
-    {
-      title: "Daisy Essentials",
-      text: "Clean neutrals + gentle florals for daily wear.",
-      image: "Images/daisy-essentials.jpg"
+
+    daisy: {
+      title: "Daisy Collection (everyday + classic florals)",
+      cards: [
+        {
+          title: "Daisy Floral Onesie",
+          text: "Simple, timeless all-over daisy designs.",
+          image: "Images/daisy-onesie.jpg"
+        },
+        {
+          title: "Daisy Essentials",
+          text: "Clean neutrals + gentle florals for daily wear.",
+          image: "Images/daisy-essentials.jpg"
+        }
+      ]
+    },
+
+    dinos: {
+      title: "Dino Friends (Maisysaurus world)",
+      cards: [
+        {
+          title: "Maisysaurus",
+          text: "Core gentle stego-inspired dino.",
+          image: "Images/dino-family.jpg"
+        },
+        {
+          title: "Pip Raptor",
+          text: "Friendly blue-toned raptor.",
+          image: "Images/pip-raptor.jpg"
+        },
+        {
+          title: "Poppy Para",
+          text: "Blush pink playful friend.",
+          image: "Images/poppy-para.jpg"
+        },
+        {
+          title: "Tilly Trike",
+          text: "Warm beige earth-tone dino.",
+          image: "Images/tilly-trike.jpg"
+        },
+        {
+          title: "Buddy Bronto",
+          text: "Calm pale blue-gray buddy.",
+          image: "Images/buddy-bronto.jpg"
+        },
+        {
+          title: "Sunny Stego",
+          text: "Sun-warm yellow-green stego friend.",
+          image: "Images/sunny-stego.jpg"
+        },
+        {
+          title: "Dottie Dino",
+          text: "Dusty rose sweet friend.",
+          image: "Images/dottie-dino.jpg"
+        }
+      ]
+    },
+
+    gifts: {
+      title: "Gift Sets",
+      cards: [
+        {
+          title: "Maisy Gift Set",
+          text: "Onesie + daisy burp cloth (gift-ready).",
+          image: "Images/maisy-gift-set.jpg"
+        },
+        {
+          title: "Daisy Gift Set",
+          text: "Daisy onesie + daisy burp cloth (simple + sweet).",
+          image: "Images/daisy-gift-set.jpg"
+        }
+      ]
     }
-  ]
-},
+  };
 
-dinos: {
-  title: "Dino Friends (Maisysaurus world)",
-  cards: [
-    {
-      title: "Maisysaurus",
-      text: "Core gentle stego-inspired dino.",
-      image: "Images/dino-family.jpg"
-    },
-    {
-      title: "Pip Raptor",
-      text: "Friendly blue-toned raptor.",
-      image: "Images/pip-raptor.jpg"
-    },
-    {
-      title: "Poppy Para",
-      text: "Blush pink playful friend.",
-      image: "Images/poppy-para.jpg"
-    },
-    {
-      title: "Tilly Trike",
-      text: "Warm beige earth-tone dino.",
-      image: "Images/tilly-trike.jpg"
-    },
-    {
-      title: "Buddy Bronto",
-      text: "Calm pale blue-gray buddy.",
-      image: "Images/buddy-bronto.jpg"
-    },
-    {
-      title: "Sunny Stego",
-      text: "Sun-warm yellow-green stego friend.",
-      image: "Images/sunny-stego.jpg"
-    },
-    {
-      title: "Dottie Dino",
-      text: "Dusty rose sweet friend.",
-      image: "Images/dottie-dino.jpg"
-    }
-  ]
-},
-
-      },
-gifts: {
-  title: "Gift Sets",
-  cards: [
-    {
-      title: "Maisy Gift Set",
-      text: "Onesie + daisy burp cloth (gift-ready).",
-      image: "Images/maisy-gift-set.jpg"
-    },
-    {
-      title: "Daisy Gift Set",
-      text: "Daisy onesie + daisy burp cloth (simple + sweet).",
-      image: "Images/daisy-gift-set.jpg"
-    }
-  ]
-}
-
-        ]
-      }
-    };
-
-    function cardHTML(card){
-      return `
-        <div class="card">
-          <h2>${card.title}</h2>
-          <p>${card.text}</p>
-<div class="media">
-  <img src="${card.image}" alt="${card.title}">
-</div>
-         <div class="ctaRow">
-            <a class="btn primary" href="#" onclick="alert('Add your Etsy link here later!'); return false;">Shop on Etsy</a>
-            <a class="btn" href="#" onclick="alert('Add a collection page link here later!'); return false;">Learn more</a>
-          </div>
+  function cardHTML(card){
+    return `
+      <div class="card">
+        <h2>${card.title}</h2>
+        <p>${card.text}</p>
+        <div class="media">
+          <img src="${card.image}" alt="${card.title}">
         </div>
-      `;
-    }
-
-    function render(viewKey){
-      const v = VIEWS[viewKey];
-      viewEl.innerHTML = `
-        <h2 style="margin:0; font-size:1.15rem;">${v.title}</h2>
-        <div class="grid">
-          ${v.cards.map(cardHTML).join("")}
+        <div class="ctaRow">
+          <a class="btn primary" href="#" onclick="alert('Add your Etsy link here later!'); return false;">Shop on Etsy</a>
+          <a class="btn" href="#" onclick="alert('Add a collection page link here later!'); return false;">Learn more</a>
         </div>
-      `;
-      tabs.forEach(t => t.setAttribute("aria-selected", String(t.dataset.view === viewKey)));
-    }
+      </div>
+    `;
+  }
 
-    tabs.forEach(btn => btn.addEventListener("click", () => render(btn.dataset.view)));
-    render("maisy");
-  </script>
+  function render(viewKey){
+    const v = VIEWS[viewKey];
+    viewEl.innerHTML = `
+      <h2 style="margin:0; font-size:1.15rem;">${v.title}</h2>
+      <div class="grid">
+        ${v.cards.map(cardHTML).join("")}
+      </div>
+    `;
+    tabs.forEach(t => t.setAttribute("aria-selected", String(t.dataset.view === viewKey)));
+  }
+
+  tabs.forEach(btn => btn.addEventListener("click", () => render(btn.dataset.view)));
+  render("maisy");
+</script>
+ 
 </body>
 </html>
