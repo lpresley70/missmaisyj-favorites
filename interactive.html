@@ -152,9 +152,16 @@
     const VIEWS = {
       maisy: {
         title: "Maisy Collection (storybook + keepsake)",
-        cards: [
-          { title: "Storybook Maisy Onesie", text: "Boutique, gentle watercolor character pieces." },
-          { title: "Garden Maisy", text: "Soft overalls + calm neutral tones." },
+        cards: [{
+  title: "Storybook Maisy Onesie",
+  text: "Boutique, gentle watercolor character pieces.",
+  image: "Images/maisy-onesie.jpg"
+},
+        {
+  title: "Garden Maisy",
+  text: "Soft overalls + calm neutral tones.",
+  image: "Images/garden-maisy.jpg"
+},
         ]
       },
       daisy: {
@@ -191,10 +198,9 @@
           <h2>${card.title}</h2>
           <p>${card.text}</p>
 <div class="media">
-  <img src="Images/REPLACE-ME.jpg" alt="">
+  <img src="${card.image}" alt="${card.title}">
 </div>
-
-          <div class="ctaRow">
+         <div class="ctaRow">
             <a class="btn primary" href="#" onclick="alert('Add your Etsy link here later!'); return false;">Shop on Etsy</a>
             <a class="btn" href="#" onclick="alert('Add a collection page link here later!'); return false;">Learn more</a>
           </div>
