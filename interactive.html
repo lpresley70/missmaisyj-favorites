@@ -79,7 +79,7 @@
     .media{
       margin-top:12px;
       width:100%;
-      aspect-ratio: 4/3;
+      aspect-ratio: 1 / 1;
       border-radius: 14px;
       background: linear-gradient(135deg, #f6f3ee, #ffffff);
       border:1px dashed var(--sand);
@@ -92,6 +92,11 @@
       padding:10px;
       overflow:hidden;
     }
+    .media img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
     .ctaRow{
       display:flex; gap:10px; flex-wrap:wrap;
       margin-top:12px;
