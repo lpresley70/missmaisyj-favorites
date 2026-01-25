@@ -256,21 +256,25 @@ dinos: {
     }
   };
 
-  function cardHTML(card){
-    return `
-      <div class="card">
-        <h2>${card.title}</h2>
-        <p>${card.text}</p>
-        <div class="media">
-          <img src="${card.image}" alt="${card.title}">
-        </div>
-        <div class="ctaRow">
-          <a class="btn primary" href="#" onclick="alert('Add your Etsy link here later!'); return false;">Shop on Etsy</a>
-          <a class="btn" href="#" onclick="alert('Add a collection page link here later!'); return false;">Learn more</a>
-        </div>
+function cardHTML(card){
+  const isWelcome = card.title === "Gentle baby essentials, inspired by Maisy.";
+
+  return `
+    <div class="card" ${isWelcome ? 'onclick="render(\'maisy\')"' : ''} style="${isWelcome ? 'cursor:pointer' : ''}">
+      <h2>${card.title}</h2>
+      <p>${card.text}</p>
+      <div class="media">
+        <img src="${card.image}" alt="${card.title}">
       </div>
-    `;
-  }
+
+      ${isWelcome ? '' : `
+      <div class="ctaRow">
+        <a class="btn primary" href="#" onclick="alert('Add your Etsy link here later!'); return false;">Shop on Etsy</a>
+        <a class="btn" href="#" onclick="alert('Add your Etsy link here later!'); return false;">Learn more</a>
+      </div>`}
+    </div>
+  `;
+}
 
   function render(viewKey){
     const v = VIEWS[viewKey];
