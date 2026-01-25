@@ -263,7 +263,7 @@ dinos: {
   };
 
 function cardHTML(card){
-  const goTo = card.goTo ? `onclick="render('${card.goTo}')"` : "";
+  const goTo = card.goTo ? `onclick="render('${card.goTo}'); return false;"` : "";
   const cursor = card.goTo ? "cursor:pointer" : "";
 
   return `
