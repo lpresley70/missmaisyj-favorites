@@ -134,12 +134,14 @@
       </div>
     </div>
 
-    <div class="tabs" role="tablist" aria-label="Collections">
-      <button class="tab" role="tab" aria-selected="true" data-view="maisy">Maisy Collection</button>
-      <button class="tab" role="tab" aria-selected="false" data-view="daisy">Daisy Collection</button>
-      <button class="tab" role="tab" aria-selected="false" data-view="dinos">Dino Friends</button>
-      <button class="tab" role="tab" aria-selected="false" data-view="gifts">Gift Sets</button>
-    </div>
+<div class="tabs" role="tablist" aria-label="Collections">
+  <button class="tab" role="tab" aria-selected="true" data-view="home">Welcome</button>
+  <button class="tab" role="tab" aria-selected="false" data-view="maisy">Maisy Collection</button>
+  <button class="tab" role="tab" aria-selected="false" data-view="daisy">Daisy Collection</button>
+  <button class="tab" role="tab" aria-selected="false" data-view="dinos">Dino Friends</button>
+  <button class="tab" role="tab" aria-selected="false" data-view="gifts">Gift Sets</button>
+</div>
+
   </header>
 
   <main>
@@ -147,14 +149,24 @@
   </main>
 
   <footer>
-    <div>Tip: Upload images to <strong>/Images</strong> and we can swap the placeholders later.</div>
+    <div>Tip: Upload images to <strong>/images</strong> and we can swap the placeholders later.</div>
   </footer>
 <script>
   const viewEl = document.getElementById("view");
   const tabs = Array.from(document.querySelectorAll(".tab"));
 
   const VIEWS = {
-    maisy: {
+home: {
+  title: "Welcome to Miss Maisy J Favorites",
+  cards: [
+    {
+      title: "Gentle baby essentials, inspired by Maisy.",
+      text: "Tap Enter to explore storybook, daisies, dino friends, and gift sets.",
+      image: "images/welcome-maisy.png"
+    }
+  ]
+},
+maisy: {
       title: "Maisy Collection (storybook + keepsake)",
       cards: [
         {
@@ -272,7 +284,7 @@ dinos: {
   }
 
   tabs.forEach(btn => btn.addEventListener("click", () => render(btn.dataset.view)));
-  render("maisy");
+ render("home");
 </script>
  
 </body>
