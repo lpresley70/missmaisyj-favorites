@@ -217,7 +217,80 @@
 
 @media (max-width: 860px){
   .closetContent{ grid-template-columns: 1fr; }
+}/* ===== Phase 3: Castle Doors ===== */
+.doors{
+  position: absolute;
+  inset: 14px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  pointer-events: auto;
 }
+
+.door{
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(180deg, #fff 0%, #f6f3ee 100%);
+  border: 1px solid var(--sand);
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  transition: transform 900ms cubic-bezier(.2,.8,.2,1);
+}
+
+.door.left{
+  left: 0;
+  border-right: none;
+  transform: translateX(0);
+}
+
+.door.right{
+  right: 0;
+  border-left: none;
+  transform: translateX(0);
+}
+
+.door::before{
+  content:"";
+  position:absolute;
+  inset: 12% 14%;
+  border-radius: 18px;
+  border: 1px solid rgba(233,227,215,.9);
+  background: rgba(255,255,255,.35);
+}
+
+.door::after{
+  content:"";
+  position:absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(154,168,143,.55);
+  transform: translateY(-50%);
+}
+.door.left::after{ right: 18px; }
+.door.right::after{ left: 18px; }
+
+.closetStage.open .door.left{ transform: translateX(-104%); }
+.closetStage.open .door.right{ transform: translateX(104%); }
+
+.tapHint{
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,.85);
+  border: 1px solid var(--sand);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-weight: 650;
+  color: #2d3a2b;
+  box-shadow: 0 10px 24px rgba(0,0,0,.08);
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+
+.closetStage.open .tapHint{ opacity: 0; }
   </style>
 </head>
 <body>
@@ -463,7 +536,10 @@ function cardHTML(card){
 // ===== Princess Overlay controls (Phase 2) =====
 const princessOverlay = document.getElementById("princessOverlay");
 const closePrincessBtn = document.getElementById("closePrincess");
-
+  
+const closetStage = princessOverlay.querySelector(".closetStage");
+const doorsEl = princessOverlay.querySelector(".doors");
+  
 function openPrincessOverlay(){
   princessOverlay.hidden = false;
   princessOverlay.setAttribute("aria-hidden", "false");
@@ -476,8 +552,12 @@ function closePrincessOverlay(){
   princessOverlay.setAttribute("aria-hidden", "true");
   princessOverlay.style.display = "none";
   document.body.style.overflow = "";
+  closetStage.classList.remove("open");
 }
-
+doorsEl.addEventListener("click", (e) => {
+  e.preventDefault();
+  closetStage.classList.add("open");
+});
 closePrincessBtn.addEventListener("click", (e) => {
   e.stopPropagation();
   closePrincessOverlay();
