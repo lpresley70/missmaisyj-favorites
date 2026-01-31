@@ -504,8 +504,6 @@
       </div>
     </div>
   </div>
-
-</div>
 <script>
   // ===== Base app (tabs + cards) =====
   const viewEl = document.getElementById("view");
@@ -529,7 +527,6 @@
         }
       ]
     },
-
     maisy: {
       title: "Maisy Collection (storybook + keepsake)",
       cards: [
@@ -537,7 +534,6 @@
         { title: "Garden Maisy", text: "Soft overalls + calm neutral tones.", image: "images/garden-maisy.jpg" }
       ]
     },
-
     daisy: {
       title: "Daisy Collection (everyday + classic florals)",
       cards: [
@@ -545,7 +541,6 @@
         { title: "Daisy Essentials", text: "Clean neutrals + gentle florals for daily wear.", image: "images/daisy-essentials.jpg" }
       ]
     },
-
     dinos: {
       title: "Dino Friends",
       cards: [
@@ -559,7 +554,6 @@
         { title: "Perry Ptero", text: "Gentle flying friend who watches over Dino Land.", image: "images/PerryPtero.png" }
       ]
     },
-
     princess: {
       title: "Princess Collection (dreamy + keepsake)",
       cards: [
@@ -576,7 +570,6 @@
         }
       ]
     },
-
     gifts: {
       title: "Gift Sets",
       cards: [
@@ -588,7 +581,7 @@
 
   function cardHTML(card){
     const goTo = card.goTo ? `onclick="render('${card.goTo}'); return false;"` : "";
-    const cursor = card.goTo ? "cursor:pointer" : (card.id ? "cursor:pointer" : "");
+    const cursor = (card.goTo || card.id) ? "cursor:pointer" : "";
 
     return `
       <div class="card" ${goTo} style="${cursor}" ${card.id ? `id="${card.id}"` : ""}>
@@ -609,6 +602,8 @@
 
   function render(viewKey){
     const v = VIEWS[viewKey];
+    if (!v) return;
+
     viewEl.innerHTML = `
       <h2 style="margin:0; font-size:1.15rem;">${v.title}</h2>
       <div class="grid">
@@ -624,36 +619,40 @@
   // ===== Princess Overlay =====
   const princessOverlay = document.getElementById("princessOverlay");
   const closePrincessBtn = document.getElementById("closePrincess");
-  const overlayCard = princessOverlay?.querySelector(".overlayCard");
+  const overlayCard = princessOverlay ? princessOverlay.querySelector(".overlayCard") : null;
 
-  const closetStage = princessOverlay?.querySelector(".closetStage");
-  const doorsEl = princessOverlay?.querySelector(".doors");
-  const closetRoom = princessOverlay?.querySelector(".closetRoom");
-  const preDoors = princessOverlay?.querySelector(".preDoors");
+  const closetStage = princessOverlay ? princessOverlay.querySelector(".closetStage") : null;
+  const doorsEl = princessOverlay ? princessOverlay.querySelector(".doors") : null;
+  const closetRoom = princessOverlay ? princessOverlay.querySelector(".closetRoom") : null;
+  const preDoors = princessOverlay ? princessOverlay.querySelector(".preDoors") : null;
 
   function openPrincessOverlay(){
     if (!princessOverlay) return;
+
     princessOverlay.hidden = false;
     princessOverlay.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
 
     if (closetStage) closetStage.classList.remove("open");
-const preDoorsEl = closetStage?.querySelector(".preDoors");
-const closetRoomEl = closetStage?.querySelector(".closetRoom");
-
-if (preDoorsEl) preDoorsEl.hidden = true;
-if (closetRoomEl) closetRoomEl.hidden = false;
-
+    if (preDoors) {
+      preDoors.hidden = false;
+      preDoors.style.display = "";
+    }
+    if (closetRoom) closetRoom.hidden = true;
   }
 
   function closePrincessOverlay(){
     if (!princessOverlay) return;
+
     princessOverlay.hidden = true;
     princessOverlay.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
 
     if (closetStage) closetStage.classList.remove("open");
-    if (preDoors) preDoors.hidden = false;
+    if (preDoors) {
+      preDoors.hidden = false;
+      preDoors.style.display = "";
+    }
     if (closetRoom) closetRoom.hidden = true;
   }
 
@@ -663,7 +662,7 @@ if (closetRoomEl) closetRoomEl.hidden = false;
     if (castleCard) openPrincessOverlay();
   });
 
-  // Prevent clicks inside the card from closing
+  // Prevent clicks inside the card from bubbling
   if (overlayCard) overlayCard.addEventListener("click", (e) => e.stopPropagation());
 
   // Close button
@@ -683,22 +682,21 @@ if (closetRoomEl) closetRoomEl.hidden = false;
   });
 
   // Doors click -> open animation -> switch scene
-if (doorsEl) doorsEl.addEventListener("click", (e) => {
-  e.preventDefault();
-  e.stopPropagation();
+  if (doorsEl) doorsEl.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-  // HIDE Scene A immediately (castle + Princess)
-  if (preDoors) preDoors.style.display = "none";
+    if (closetStage) closetStage.classList.add("open");
 
-  // OPEN the doors
-  if (closetStage) closetStage.classList.add("open");
-
-  // SHOW Scene B after doors finish opening
-  setTimeout(() => {
-    if (closetRoom) closetRoom.hidden = false;
-  }, 900);
-});
-
+    setTimeout(() => {
+      if (preDoors) {
+        preDoors.hidden = true;
+        preDoors.style.display = "none";
+      }
+      if (closetRoom) closetRoom.hidden = false;
+    }, 900);
+  });
 </script>
+</div>
 </body>
 </html>
