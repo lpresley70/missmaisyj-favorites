@@ -121,7 +121,7 @@
       padding:0 18px 28px;
       color:var(--muted);
       font-size:.92rem;
-    }/* ===== Princess Overlay (Phase 1) ===== */
+    }/* ===== Princess Overlay (Phase 1 + Close Fix) ===== */
 .overlay{
   position: fixed;
   inset: 0;
@@ -135,10 +135,13 @@
   inset: 0;
   background: rgba(0,0,0,.45);
   backdrop-filter: blur(4px);
+  z-index: 0;
+  pointer-events: auto;
 }
 
 .overlayCard{
   position: relative;
+  z-index: 1;
   width: min(980px, 92vw);
   max-height: 88vh;
   overflow: hidden;
@@ -146,6 +149,7 @@
   border: 1px solid var(--sand);
   border-radius: calc(var(--radius) + 6px);
   box-shadow: 0 22px 70px rgba(0,0,0,.22);
+  pointer-events: auto;
 }
 
 .overlayHeader{
@@ -158,12 +162,15 @@
 }
 
 .closeBtn{
+  position: relative;
+  z-index: 2;
   border: 1px solid var(--sand);
   background: #fff;
   border-radius: 12px;
   padding: 8px 10px;
   cursor: pointer;
   font-weight: 700;
+  pointer-events: auto;
 }
 
 .overlayBody{
@@ -201,6 +208,11 @@
   border-radius: var(--radius);
   padding: 12px;
   background: #fff;
+}
+
+/* Force hidden overlays to disappear */
+#princessOverlay[hidden]{
+  display: none !important;
 }
 
 @media (max-width: 860px){
