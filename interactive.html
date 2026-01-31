@@ -151,7 +151,48 @@
 
   <footer>
     <div>Tip: Upload images to <strong>/images</strong> and we can swap the placeholders later.</div>
-  </footer>
+  </footer><!-- Princess Closet Overlay (Phase 1: structure only) -->
+<div id="princessOverlay" class="overlay" hidden aria-hidden="true">
+  <div class="overlayBackdrop" data-close></div>
+
+  <div class="overlayCard" role="dialog" aria-modal="true" aria-label="Princess Maisy’s Closet">
+    <div class="overlayHeader">
+      <div>
+        <h2 style="margin:0;">Princess Maisy’s Closet</h2>
+        <p style="margin:6px 0 0; color: var(--muted);">Tap the castle doors to open.</p>
+      </div>
+      <button type="button" class="closeBtn" id="closePrincess" aria-label="Close">✕</button>
+    </div>
+
+    <div class="overlayBody">
+      <div class="closetStage">
+        <div class="doors" aria-hidden="true">
+          <div class="door left"></div>
+          <div class="door right"></div>
+        </div>
+
+        <div class="closetContent">
+          <div class="closetLeft">
+            <div class="closetImage" role="img" aria-label="Princess castle">
+              <!-- Phase 2/3: we’ll swap this for your interior scene -->
+              <img src="images/princess-castle.png" alt="Princess Castle" style="width:100%; height:100%; object-fit:contain;">
+            </div>
+          </div>
+
+          <div class="closetRight">
+            <div class="maisyCard">
+              <img src="images/princess-maisy.png" alt="Princess Maisy" style="width:100%; height:auto; display:block;">
+              <p style="margin:10px 0 0; color: var(--muted); line-height:1.35;">
+                Welcome to the Princess Collection ✨
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
 <script>
   const viewEl = document.getElementById("view");
   const tabs = Array.from(document.querySelectorAll(".tab"));
