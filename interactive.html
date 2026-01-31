@@ -451,12 +451,14 @@ console.log("closePrincessBtn:", closePrincessBtn);
 function openPrincessOverlay(){
   princessOverlay.hidden = false;
   princessOverlay.setAttribute("aria-hidden", "false");
+  princessOverlay.style.display = "grid";
   document.body.style.overflow = "hidden";
 }
 
 function closePrincessOverlay(){
   princessOverlay.hidden = true;
   princessOverlay.setAttribute("aria-hidden", "true");
+  princessOverlay.style.display = "none";
   document.body.style.overflow = "";
 }
 
