@@ -184,6 +184,7 @@
   padding: 14px;
   position: relative;
   overflow: hidden;
+  perspective: 1200px;
 }
 
 .closetContent{
@@ -384,14 +385,20 @@
   border-right:none;
   border-top-left-radius: 999px;
   border-bottom-left-radius: calc(var(--radius) + 14px);
-  transform: translateX(0);
+
+  /* hinge setup */
+  transform-origin: 0% 50%;
+  transform: rotateY(0deg);
 }
 .door.right{
   right:0;
   border-left:none;
   border-top-right-radius: 999px;
   border-bottom-right-radius: calc(var(--radius) + 14px);
-  transform: translateX(0);  
+
+  /* hinge setup */
+  transform-origin: 100% 50%;
+  transform: rotateY(0deg);
 }
 /* ===== Hinged Castle Door Swing ===== */
 
@@ -416,6 +423,9 @@
   transform: rotateY(105deg);
   filter: brightness(1.05);
 }
+    
+.closetStage.open .tapHint{ opacity: 0; }
+    
 /* inner panels + gentle hinge feel */
 .door::before{
   content:"";
@@ -442,8 +452,6 @@
 .door.right::after{ left: 22px; }
 
 /* OPEN state */
-
-.closetStage.open .tapHint{ opacity: 0; }
 
   </style>
 </head>
