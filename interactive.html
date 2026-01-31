@@ -361,7 +361,40 @@ function cardHTML(card){
 
   tabs.forEach(btn => btn.addEventListener("click", () => render(btn.dataset.view)));
  render("home");
-</script>
+</script>// ===== Princess Overlay controls (Phase 2) =====
+const princessOverlay = document.getElementById("princessOverlay");
+const closePrincessBtn = document.getElementById("closePrincess");
+
+function openPrincessOverlay(){
+  princessOverlay.hidden = false;
+  princessOverlay.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+function closePrincessOverlay(){
+  princessOverlay.hidden = true;
+  princessOverlay.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+// Close button
+closePrincessBtn.addEventListener("click", closePrincessOverlay);
+
+// Click backdrop to close
+princessOverlay.addEventListener("click", (e) => {
+  if (e.target.matches("[data-close]")) closePrincessOverlay();
+});
+
+// Escape key closes
+window.addEventListener("keydown", (e) => {
+  if (!princessOverlay.hidden && e.key === "Escape") closePrincessOverlay();
+});
+
+// Open overlay when castle card is clicked (after rendering the Princess view)
+viewEl.addEventListener("click", (e) => {
+  const castleCard = e.target.closest("#princessCastle");
+  if (castleCard) openPrincessOverlay();
+});
  
 </body>
 </html>
