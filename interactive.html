@@ -331,7 +331,8 @@ function cardHTML(card){
   const cursor = card.goTo ? "cursor:pointer" : "";
 
   return `
-    <div class="card" ${goTo} style="${cursor}">
+ return `
+  <div class="card" ${goTo} style="${cursor}" ${card.id ? `id="${card.id}"` : ""}>
       <h2>${card.title}</h2>
       <p>${card.text}</p>
       <div class="media">
