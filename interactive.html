@@ -203,7 +203,27 @@
   place-items: center;
   overflow: hidden;
 }
+/* ===== FIX: Scene B visibility ===== */
 
+/* Scene A and Scene B both use the same two-column layout */
+.preDoors,
+.closetRoom{
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 14px;
+  align-items: start;
+}
+
+/* When hidden, they should REALLY disappear */
+.preDoors[hidden],
+.closetRoom[hidden]{
+  display: none !important;
+}
+
+/* Give the closet interior panel height so it doesn't collapse */
+.closetInterior{
+  min-height: 420px;
+}
 .maisyCard{
   border: 1px solid var(--sand);
   border-radius: var(--radius);
@@ -464,7 +484,7 @@
                 <button class="itemBtn" type="button">Pajamas</button>
                 <button class="itemBtn" type="button">Bows</button>
                 <button class="itemBtn" type="button">Swaddles</button>
-              </div>
+              </div> 
             </div>
           </div>
 
@@ -602,8 +622,7 @@ const overlayCard = princessOverlay ? princessOverlay.querySelector(".overlayCar
 const closetStage = princessOverlay ? princessOverlay.querySelector(".closetStage") : null;
 const doorsEl = princessOverlay ? princessOverlay.querySelector(".doors") : null;
 const closetRoom = princessOverlay ? princessOverlay.querySelector(".closetRoom") : null;
-const preDoors = princessOverlay ? princessOverlay.querySelector(".preDoors") : null;
-
+const preDoors = princessOverlay ? princessOverlay.querySelector(".preDoors") : null; 
 function openPrincessOverlay(){
   if (!princessOverlay) return;
   princessOverlay.hidden = false;
@@ -614,7 +633,6 @@ function openPrincessOverlay(){
   if (preDoors) preDoors.hidden = false;
   if (closetRoom) closetRoom.hidden = true;
 }
-
 function closePrincessOverlay(){
   if (!princessOverlay) return;
   princessOverlay.hidden = true;
