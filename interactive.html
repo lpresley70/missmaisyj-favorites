@@ -442,8 +442,8 @@
       <button type="button" class="closeBtn" id="closePrincess" aria-label="Close">✕</button>
     </div>
 
-    <div class="overlayBody">
 <div class="closetStage">
+
   <div class="tapHint">Tap the doors to open</div>
 
   <div class="doors">
@@ -451,64 +451,54 @@
     <div class="door right"></div>
   </div>
 
-  <!-- This is where the closet content lives -->
-  <div class="preDoors">
-    <!-- your existing castle + Princess Maisy content can stay here for now -->
+  <!-- Scene A: BEFORE doors open -->
+  <div class="closetContent preDoors">
+    <div class="closetLeft">
+      <div class="closetImage" role="img" aria-label="Princess castle">
+        <img src="images/princess-castle.png" alt="Princess Castle"
+             style="width:100%; height:100%; object-fit:contain;">
+      </div>
+    </div>
+
+    <div class="closetRight">
+      <div class="maisyCard">
+        <img src="images/princess-maisy.png" alt="Princess Maisy"
+             style="width:100%; height:auto; display:block;">
+        <p style="margin:10px 0 0; color: var(--muted); line-height:1.35;">
+          Welcome to the Princess Collection ✨
+        </p>
+      </div>
+    </div>
   </div>
 
+  <!-- Scene B: AFTER doors open -->
   <div class="closetRoom" hidden>
-    <!-- later this becomes shelves + items -->
-  </div>
-</div>
-<!-- Scene A: what you see BEFORE doors open (optional) -->
-<div class="closetContent preDoors">
-  <div class="closetLeft">
-    <div class="closetImage" role="img" aria-label="Princess castle">
-      <img src="images/princess-castle.png" alt="Princess Castle"
-           style="width:100%; height:100%; object-fit:contain;">
+    <div class="closetLeft">
+      <div class="closetImage closetInterior" role="img" aria-label="Princess closet interior">
+        <div class="closetTitle">Princess Closet</div>
+        <div class="closetSub">Choose an item ✨</div>
+
+        <div class="shelf">
+          <button class="itemBtn">Onesies</button>
+          <button class="itemBtn">Dresses</button>
+          <button class="itemBtn">Pajamas</button>
+          <button class="itemBtn">Bows</button>
+          <button class="itemBtn">Swaddles</button>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div class="closetRight">
-    <div class="maisyCard">
-      <img src="images/princess-maisy.png" alt="Princess Maisy" style="width:100%; height:auto; display:block;">
-      <p style="margin:10px 0 0; color: var(--muted); line-height:1.35;">
-        Welcome to the Princess Collection ✨
-      </p>
-    </div>
-  </div>
-</div>
-
-<!-- Scene B: the CLOSET (hidden until doors open) -->
-<div class="closetRoom" hidden>
-  <div class="closetLeft">
-    <div class="closetImage closetInterior" role="img" aria-label="Princess closet interior">
-      <div class="closetTitle">Princess Closet</div>
-      <div class="closetSub">Choose an item ✨</div>
-
-      <!-- placeholder shelf items (Phase 4 will upgrade these) -->
-      <div class="shelf">
-        <button class="itemBtn">Onesies</button>
-        <button class="itemBtn">Dresses</button>
-        <button class="itemBtn">Pajamas</button>
-        <button class="itemBtn">Bows</button>
-        <button class="itemBtn">Swaddles</button>
+    <div class="closetRight">
+      <div class="maisyCard">
+        <img src="images/princess-maisy.png" alt="Princess Maisy"
+             style="width:100%; height:auto; display:block;">
+        <p style="margin:10px 0 0; color: var(--muted); line-height:1.35;">
+          Pick an item and I’ll bring it to you ✨
+        </p>
       </div>
     </div>
   </div>
 
-  <div class="closetRight">
-    <div class="maisyCard">
-      <img src="images/princess-maisy.png" alt="Princess Maisy" style="width:100%; height:auto; display:block;">
-      <p style="margin:10px 0 0; color: var(--muted); line-height:1.35;">
-        Pick an item and I’ll bring it to you ✨
-      </p>
-    </div>
-  </div>
-</div>
-      </div>
-    </div>
-  </div>
 </div>
 <script>
   // ===== Base app (tabs + cards) =====
