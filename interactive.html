@@ -372,7 +372,34 @@
 .closetStage.open .door.left{ transform: translateX(-104%); }
 .closetStage.open .door.right{ transform: translateX(104%); }
 .closetStage.open .tapHint{ opacity: 0; }
-    
+/* ===== DOOR VISIBILITY TEST (temporary) ===== */
+.closetStage{
+  min-height: 420px;       /* gives the doors space */
+  position: relative;
+  overflow: hidden;
+}
+
+.doors{
+  position: absolute;
+  inset: 14px;
+  z-index: 50;
+}
+
+.door{
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 0, 0, .25);   /* bright red tint so we can SEE it */
+  border: 4px solid red;
+}
+
+.door.left{ left: 0; }
+.door.right{ right: 0; }
+
+.closetStage.open .door.left{ transform: translateX(-104%); transition: transform 900ms ease; }
+.closetStage.open .door.right{ transform: translateX(104%); transition: transform 900ms ease; }
+
   </style>
 </head>
 <body>
