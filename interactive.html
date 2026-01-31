@@ -285,37 +285,29 @@
   font-weight: 700;
   color: #2d3a2b;
 }
- ===== Phase 3: Castle Doors ===== */
+/* ===== Phase 3: Castle Doors (known-good) ===== */
+.closetStage{
+  position: relative;
+  overflow: hidden;
+}
+
 .doors{
   position: absolute;
   inset: 14px;
   border-radius: var(--radius);
   overflow: hidden;
-  pointer-events: auto;
   z-index: 10;
   cursor: pointer;
 }
 
-.closetContent{
-  position: relative;
-  z-index: 1;
-}
-
-.tapHint{
-  position: absolute;
-  z-index: 11;
-}
-
-    
 .door{
   position: absolute;
   top: 0;
   width: 50%;
   height: 100%;
-  background: linear-gradient(180deg, rgba(154,168,143,.55) 0%, rgba(233,227,215,.95) 100%);
-  outline: 3px solid rgba(154,168,143,.65);
+  background: linear-gradient(180deg, #ffffff 0%, #f6f3ee 100%);
   border: 1px solid var(--sand);
-  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  box-shadow: 0 10px 30px rgba(0,0,0,.10);
   transition: transform 900ms cubic-bezier(.2,.8,.2,1);
 }
 
@@ -331,36 +323,38 @@
   transform: translateX(0);
 }
 
+/* Make them look like doors */
 .door::before{
   content:"";
   position:absolute;
-  inset: 12% 14%;
-  border-radius: 18px;
-  border: 1px solid rgba(233,227,215,.9);
-  background: rgba(255,255,255,.35);
+  left: 10%;
+  right: 10%;
+  top: 10%;
+  bottom: 12%;
+  border-radius: 999px 999px 22px 22px;
+  border: 1px solid rgba(233,227,215,.95);
+  background: rgba(255,255,255,.45);
 }
 
 .door::after{
   content:"";
   position:absolute;
-  top: 50%;
-  width: 10px;
-  height: 10px;
+  top: 52%;
+  width: 12px;
+  height: 12px;
   border-radius: 999px;
-  background: rgba(154,168,143,.55);
+  background: rgba(154,168,143,.7);
   transform: translateY(-50%);
 }
-.door.left::after{ right: 18px; }
-.door.right::after{ left: 18px; }
-
-.closetStage.open .door.left{ transform: translateX(-104%); }
-.closetStage.open .door.right{ transform: translateX(104%); }
+.door.left::after{ right: 16px; }
+.door.right::after{ left: 16px; }
 
 .tapHint{
   position: absolute;
   left: 50%;
   bottom: 16px;
   transform: translateX(-50%);
+  z-index: 11;
   background: rgba(255,255,255,.85);
   border: 1px solid var(--sand);
   border-radius: 999px;
@@ -372,7 +366,11 @@
   transition: opacity 300ms ease;
 }
 
+/* OPEN state */
+.closetStage.open .door.left{ transform: translateX(-104%); }
+.closetStage.open .door.right{ transform: translateX(104%); }
 .closetStage.open .tapHint{ opacity: 0; }
+    
   </style>
 </head>
 <body>
@@ -646,31 +644,13 @@ overlayCard.addEventListener("click", (e) => {
   e.stopPropagation();
 });
 
-  
+// ===== Doors + scene switching (Phase 3.5) =====
 const closetStage = princessOverlay.querySelector(".closetStage");
 const doorsEl = princessOverlay.querySelector(".doors");
-  
-function openPrincessOverlay(){
-  princessOverlay.hidden = false;
-  princessOverlay.setAttribute("aria-hidden", "false");
-  princessOverlay.style.display = "grid";
-  document.body.style.overflow = "hidden";
-}
-
-function closePrincessOverlay(){
-  princessOverlay.hidden = true;
-  princessOverlay.setAttribute("aria-hidden", "true");
-  princessOverlay.style.display = "none";
-  document.body.style.overflow = "";
-
-  closetStage.classList.remove("open");
-
-  if (preDoors) preDoors.hidden = false;
-  if (closetRoom) closetRoom.hidden = true;
-}
-  
 const closetRoom = princessOverlay.querySelector(".closetRoom");
 const preDoors = princessOverlay.querySelector(".preDoors");
+
+console.log("doorsEl found?", !!doorsEl);
 
 doorsEl.addEventListener("click", (e) => {
   e.preventDefault();
@@ -685,6 +665,7 @@ doorsEl.addEventListener("click", (e) => {
     if (closetRoom) closetRoom.hidden = false;
   }, 900);
 });
+
   
 closePrincessBtn.addEventListener("click", (e) => {
   e.stopPropagation();
