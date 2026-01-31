@@ -693,19 +693,7 @@ if (doorsEl) doorsEl.addEventListener("keydown", (e) => {
     openDoors();
   }
 });
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (closetStage) closetStage.classList.add("open");
-
-    setTimeout(() => {
-      if (preDoors) {
-        preDoors.hidden = true;
-        preDoors.style.display = "none";
-      }
-      if (closetRoom) closetRoom.hidden = false;
-    }, 900);
-  });
+  
 </script>
 </div>
 </body>
