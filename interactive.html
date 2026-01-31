@@ -451,7 +451,52 @@
 .door.left::after{ right: 22px; }
 .door.right::after{ left: 22px; }
 
+/* ===== FINAL Castle Doors (hinge + magic) ===== */
+
+/* stage needs perspective for 3D hinge */
+.closetStage{
+  perspective: 1200px;
+}
+
+/* doors wrapper keeps 3D children */
+.doors{
+  transform-style: preserve-3d;
+}
+
+/* base door */
+.door{
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transition:
+    transform 1100ms cubic-bezier(.2,.8,.2,1),
+    filter 1100ms ease;
+}
+
+/* arched shape + hinge points */
+.door.left{
+  transform-origin: 0% 50%;
+  transform: rotateY(0deg);
+}
+
+.door.right{
+  transform-origin: 100% 50%;
+  transform: rotateY(0deg);
+}
+
 /* OPEN state */
+.closetStage.open .door.left{
+  transform: rotateY(-105deg);
+  filter: brightness(1.05);
+}
+
+.closetStage.open .door.right{
+  transform: rotateY(105deg);
+  filter: brightness(1.05);
+}
+
+.closetStage.open .tapHint{
+  opacity: 0;
+}
 
   </style>
 </head>
