@@ -544,10 +544,12 @@ function cardHTML(card){
 const princessOverlay = document.getElementById("princessOverlay");
 const closePrincessBtn = document.getElementById("closePrincess");
   
-// IMPORTANT: block clicks from reaching the page behind the overlay
-princessOverlay.addEventListener("click", (e) => {
+const overlayCard = princessOverlay.querySelector(".overlayCard");
+
+// Prevent clicks inside the card from bubbling to the page behind
+overlayCard.addEventListener("click", (e) => {
   e.stopPropagation();
-}, true);
+});
 
   
 const closetStage = princessOverlay.querySelector(".closetStage");
@@ -567,11 +569,12 @@ function closePrincessOverlay(){
   document.body.style.overflow = "";
   closetStage.classList.remove("open");
 }
+  
 doorsEl.addEventListener("click", (e) => {
   e.preventDefault();
-  e.stopPropagation();   // THIS is the key line
+  e.stopPropagation();
+  e.stopImmediatePropagation();
   closetStage.classList.add("open");
-  console.log("closetStage classes:", closetStage.className);
 });
   
 closePrincessBtn.addEventListener("click", (e) => {
