@@ -239,20 +239,8 @@
 
 @media (max-width: 860px){
   .closetContent{ grid-template-columns: 1fr; }
-}//* ===== Scene switching (Phase 3.5) ===== */
-.preDoors{
-  display: grid;
-  grid-template-columns: 1.1fr .9fr;
-  gap: 14px;
-  align-items: start;
 }
 
-.closetRoom{
-  display: grid;
-  grid-template-columns: 1.1fr .9fr;
-  gap: 14px;
-  align-items: start;
-}
 
 /* Closet interior placeholder panel */
 .closetInterior{
@@ -474,23 +462,22 @@
 
 /* arched shape + hinge points */
 .door.left{
-  transform-origin: 0% 50%;
-  transform: rotateY(0deg);
+  transform-origin: 0% 50% !important;
+  transform: rotateY(0deg) !important;
 }
 
 .door.right{
-  transform-origin: 100% 50%;
-  transform: rotateY(0deg);
+  transform-origin: 100% 50% !important;
+  transform: rotateY(0deg) !important;
 }
 
-/* OPEN state */
 .closetStage.open .door.left{
-  transform: rotateY(-105deg);
+  transform: rotateY(-105deg) !important;
   filter: brightness(1.05);
 }
 
 .closetStage.open .door.right{
-  transform: rotateY(105deg);
+  transform: rotateY(105deg) !important;
   filter: brightness(1.05);
 }
 
