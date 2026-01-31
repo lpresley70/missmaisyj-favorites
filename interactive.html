@@ -476,7 +476,8 @@ dinos: {
   id: "princessCastle",
   title: "Enter Princess Maisy’s Castle",
   text: "Tap the castle doors to open Princess Maisy’s Closet.",
-  image: "images/princess-castle.png"
+  image: "images/princess-castle.png",
+  goTo: null
 },
 
     {
@@ -560,8 +561,10 @@ function closePrincessOverlay(){
 }
 doorsEl.addEventListener("click", (e) => {
   e.preventDefault();
+  e.stopPropagation();   // THIS is the key line
   closetStage.classList.add("open");
 });
+  
 closePrincessBtn.addEventListener("click", (e) => {
   e.stopPropagation();
   closePrincessOverlay();
