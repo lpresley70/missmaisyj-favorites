@@ -226,9 +226,9 @@
   pointer-events: auto;
 }
     
-.doors{ z-index: 5; }
+.doors{ z-index: 10; cursor: pointer; }
 .closetContent{ position: relative; z-index: 1; }
-.tapHint{ z-index: 6; }
+.tapHint{ z-index: 11; }
     
 .door{
   position: absolute;
@@ -541,6 +541,12 @@ function cardHTML(card){
 // ===== Princess Overlay controls (Phase 2) =====
 const princessOverlay = document.getElementById("princessOverlay");
 const closePrincessBtn = document.getElementById("closePrincess");
+  
+// IMPORTANT: block clicks from reaching the page behind the overlay
+princessOverlay.addEventListener("click", (e) => {
+  e.stopPropagation();
+}, true);
+
   
 const closetStage = princessOverlay.querySelector(".closetStage");
 const doorsEl = princessOverlay.querySelector(".doors");
