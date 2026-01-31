@@ -183,6 +183,7 @@
   background: radial-gradient(900px 500px at 20% 0%, #ffffff 0%, var(--bg) 60%);
   padding: 14px;
   position: relative;
+  overflow: hidden;
 }
 
 .closetContent{
@@ -235,7 +236,8 @@
   top: 0;
   width: 50%;
   height: 100%;
-  background: linear-gradient(180deg, #fff 0%, #f6f3ee 100%);
+  background: linear-gradient(180deg, rgba(154,168,143,.55) 0%, rgba(233,227,215,.95) 100%);
+  outline: 3px solid rgba(154,168,143,.65);
   border: 1px solid var(--sand);
   box-shadow: 0 10px 30px rgba(0,0,0,.08);
   transition: transform 900ms cubic-bezier(.2,.8,.2,1);
@@ -569,6 +571,7 @@ doorsEl.addEventListener("click", (e) => {
   e.preventDefault();
   e.stopPropagation();   // THIS is the key line
   closetStage.classList.add("open");
+  console.log("closetStage classes:", closetStage.className);
 });
   
 closePrincessBtn.addEventListener("click", (e) => {
