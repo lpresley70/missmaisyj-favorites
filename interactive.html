@@ -310,7 +310,27 @@
   position: relative;
   overflow: hidden;
 }
+/* ===== Magical Glow Reveal ===== */
+.closetStage::after{
+  content:"";
+  position:absolute;
+  inset: 14px;
+  border-radius: calc(var(--radius) + 14px);
+  pointer-events:none;
+  opacity: 0;
+  background:
+    radial-gradient(circle at 50% 50%,
+      rgba(255,255,255,.95) 0%,
+      rgba(255,255,255,.45) 25%,
+      rgba(154,168,143,.25) 45%,
+      rgba(154,168,143,0) 70%);
+  filter: blur(1px);
+  transition: opacity 700ms ease;
+}
 
+.closetStage.open::after{
+  opacity: 1;
+}
 /* ===== Castle Door Look (Option A) ===== */
 .doors{
   position:absolute;
@@ -351,7 +371,11 @@
   box-shadow:
     inset 0 0 0 2px rgba(154,168,143,.35),
     0 18px 40px rgba(0,0,0,.10);
-  transition: transform 900ms cubic-bezier(.2,.8,.2,1);
+   transition:
+    transform 1100ms cubic-bezier(.2,.8,.2,1),
+    filter 1100ms ease;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
 }
 
 /* arched shape */
@@ -367,9 +391,31 @@
   border-left:none;
   border-top-right-radius: 999px;
   border-bottom-right-radius: calc(var(--radius) + 14px);
-  transform: translateX(0);
+  transform: translateX(0);  
+}
+/* ===== Hinged Castle Door Swing ===== */
+
+/* hinge points */
+.door.left{
+  transform-origin: 0% 50%;
+  transform: rotateY(0deg);
 }
 
+.door.right{
+  transform-origin: 100% 50%;
+  transform: rotateY(0deg);
+}
+
+/* open state */
+.closetStage.open .door.left{
+  transform: rotateY(-105deg);
+  filter: brightness(1.05);
+}
+
+.closetStage.open .door.right{
+  transform: rotateY(105deg);
+  filter: brightness(1.05);
+}
 /* inner panels + gentle hinge feel */
 .door::before{
   content:"";
@@ -396,8 +442,7 @@
 .door.right::after{ left: 22px; }
 
 /* OPEN state */
-.closetStage.open .door.left{ transform: translateX(-106%); }
-.closetStage.open .door.right{ transform: translateX(106%); }
+
 .closetStage.open .tapHint{ opacity: 0; }
 
   </style>
@@ -674,10 +719,10 @@ function openDoors(){
   if (!closetStage) return;
   closetStage.classList.add("open");
 
-  setTimeout(() => {
-    if (preDoors) preDoors.hidden = true;
-    if (closetRoom) closetRoom.hidden = false;
-  }, 900);
+setTimeout(() => {
+  if (preDoors) preDoors.hidden = true;
+  if (closetRoom) closetRoom.hidden = false;
+}, 1100);
 }
 
 if (doorsEl) doorsEl.addEventListener("click", (e) => {
