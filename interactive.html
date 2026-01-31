@@ -292,11 +292,20 @@
   border-radius: var(--radius);
   overflow: hidden;
   pointer-events: auto;
+  z-index: 10;
+  cursor: pointer;
 }
-    
-.doors{ z-index: 10; cursor: pointer; }
-.closetContent{ position: relative; z-index: 1; }
-.tapHint{ z-index: 11; }
+
+.closetContent{
+  position: relative;
+  z-index: 1;
+}
+
+.tapHint{
+  position: absolute;
+  z-index: 11;
+}
+
     
 .door{
   position: absolute;
