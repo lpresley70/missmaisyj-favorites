@@ -460,10 +460,13 @@ function closePrincessOverlay(){
   document.body.style.overflow = "";
 }
 
-closePrincessBtn.addEventListener("click", closePrincessOverlay);
+closePrincessBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  closePrincessOverlay();
+});
 
 princessOverlay.addEventListener("click", (e) => {
-  if (e.target.matches("[data-close]")) closePrincessOverlay();
+  if (e.target.classList.contains("overlayBackdrop")) closePrincessOverlay();
 });
 
 window.addEventListener("keydown", (e) => {
