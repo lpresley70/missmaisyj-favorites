@@ -331,8 +331,7 @@ function cardHTML(card){
   const cursor = card.goTo ? "cursor:pointer" : "";
 
   return `
- return `
-  <div class="card" ${goTo} style="${cursor}" ${card.id ? `id="${card.id}"` : ""}>
+    <div class="card" ${goTo} style="${cursor}" ${card.id ? `id="${card.id}"` : ""}>
       <h2>${card.title}</h2>
       <p>${card.text}</p>
       <div class="media">
@@ -361,7 +360,7 @@ function cardHTML(card){
 
   tabs.forEach(btn => btn.addEventListener("click", () => render(btn.dataset.view)));
  render("home");
-</script>// ===== Princess Overlay controls (Phase 2) =====
+// ===== Princess Overlay controls (Phase 2) =====
 const princessOverlay = document.getElementById("princessOverlay");
 const closePrincessBtn = document.getElementById("closePrincess");
 
@@ -377,20 +376,16 @@ function closePrincessOverlay(){
   document.body.style.overflow = "";
 }
 
-// Close button
 closePrincessBtn.addEventListener("click", closePrincessOverlay);
 
-// Click backdrop to close
 princessOverlay.addEventListener("click", (e) => {
   if (e.target.matches("[data-close]")) closePrincessOverlay();
 });
 
-// Escape key closes
 window.addEventListener("keydown", (e) => {
   if (!princessOverlay.hidden && e.key === "Escape") closePrincessOverlay();
 });
 
-// Open overlay when castle card is clicked (after rendering the Princess view)
 viewEl.addEventListener("click", (e) => {
   const castleCard = e.target.closest("#princessCastle");
   if (castleCard) openPrincessOverlay();
