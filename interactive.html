@@ -634,56 +634,78 @@ function cardHTML(card){
   tabs.forEach(btn => btn.addEventListener("click", () => render(btn.dataset.view)));
  render("home");
 // ===== Princess Overlay controls (Phase 2) =====
-const princessOverlay = document.getElementById("princessOverlay");
-const closePrincessBtn = document.getElementById("closePrincess");
-  
-const overlayCard = princessOverlay.querySelector(".overlayCard");
+<script>
+  // ===== Existing app code above this stays the same =====
+  // (viewEl, tabs, VIEWS, cardHTML, render(), etc.)
 
-// Prevent clicks inside the card from bubbling to the page behind
-overlayCard.addEventListener("click", (e) => {
-  e.stopPropagation();
-});
+  // ===== Princess Overlay (known-good) =====
+  const princessOverlay = document.getElementById("princessOverlay");
+  const closePrincessBtn = document.getElementById("closePrincess");
+  const overlayCard = princessOverlay.querySelector(".overlayCard");
 
-// ===== Doors + scene switching (Phase 3.5) =====
-const closetStage = princessOverlay.querySelector(".closetStage");
-const doorsEl = princessOverlay.querySelector(".doors");
-const closetRoom = princessOverlay.querySelector(".closetRoom");
-const preDoors = princessOverlay.querySelector(".preDoors");
+  const closetStage = princessOverlay.querySelector(".closetStage");
+  const doorsEl = princessOverlay.querySelector(".doors");
+  const closetRoom = princessOverlay.querySelector(".closetRoom");
+  const preDoors = princessOverlay.querySelector(".preDoors");
 
-console.log("doorsEl found?", !!doorsEl);
+  function openPrincessOverlay(){
+    princessOverlay.hidden = false;
+    princessOverlay.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
 
-doorsEl.addEventListener("click", (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  e.stopImmediatePropagation();
+    // Reset scene every time you open
+    closetStage.classList.remove("open");
+    if (preDoors) preDoors.hidden = false;
+    if (closetRoom) closetRoom.hidden = true;
+  }
 
-  closetStage.classList.add("open");
+  function closePrincessOverlay(){
+    princessOverlay.hidden = true;
+    princessOverlay.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
 
-  // After doors finish sliding (900ms), switch to closet room
-  setTimeout(() => {
-    if (preDoors) preDoors.hidden = true;
-    if (closetRoom) closetRoom.hidden = false;
-  }, 900);
-});
+    closetStage.classList.remove("open");
+    if (preDoors) preDoors.hidden = false;
+    if (closetRoom) closetRoom.hidden = true;
+  }
 
-  
-closePrincessBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  closePrincessOverlay();
-});
+  // Stop clicks inside the card from closing anything
+  overlayCard.addEventListener("click", (e) => e.stopPropagation());
 
-princessOverlay.addEventListener("click", (e) => {
-  if (e.target.classList.contains("overlayBackdrop")) closePrincessOverlay();
-});
+  // Close actions
+  closePrincessBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    closePrincessOverlay();
+  });
 
-window.addEventListener("keydown", (e) => {
-  if (!princessOverlay.hidden && e.key === "Escape") closePrincessOverlay();
-});
+  princessOverlay.addEventListener("click", (e) => {
+    // Click on dark backdrop closes
+    if (e.target.classList.contains("overlayBackdrop")) closePrincessOverlay();
+  });
 
-viewEl.addEventListener("click", (e) => {
-  const castleCard = e.target.closest("#princessCastle");
-  if (castleCard) openPrincessOverlay();
-});
+  window.addEventListener("keydown", (e) => {
+    if (!princessOverlay.hidden && e.key === "Escape") closePrincessOverlay();
+  });
+
+  // Door click -> open doors -> switch scene
+  doorsEl.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    closetStage.classList.add("open");
+
+    setTimeout(() => {
+      if (preDoors) preDoors.hidden = true;
+      if (closetRoom) closetRoom.hidden = false;
+    }, 900);
+  });
+
+  // Castle card click opens overlay
+  viewEl.addEventListener("click", (e) => {
+    const castleCard = e.target.closest("#princessCastle");
+    if (castleCard) openPrincessOverlay();
+  });
+</script>
 </script>
 
 </body>
