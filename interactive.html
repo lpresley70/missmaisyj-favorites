@@ -437,8 +437,9 @@
   <footer>
     <div>Tip: Upload images to <strong>/images</strong> and we can swap the placeholders later.</div>
   </footer><!-- Princess Closet Overlay (Phase 1: structure only) -->
+<!-- Princess Closet Overlay (CLEAN + WORKING) -->
 <div id="princessOverlay" class="overlay" hidden aria-hidden="true">
-  <div class="overlayBackdrop" data-close></div>
+  <div class="overlayBackdrop"></div>
 
   <div class="overlayCard" role="dialog" aria-modal="true" aria-label="Princess Maisy’s Closet">
     <div class="overlayHeader">
@@ -449,61 +450,65 @@
       <button type="button" class="closeBtn" id="closePrincess" aria-label="Close">✕</button>
     </div>
 
-<div class="closetStage">
-  <div class="tapHint">Tap the doors to open</div>
+    <div class="overlayBody">
+      <div class="closetStage">
 
-  <div class="doors">
-    <div class="door left"></div>
-    <div class="door right"></div>
-  </div>
+        <div class="tapHint">Tap the doors to open</div>
 
-  <!-- Scene A: BEFORE doors open -->
-  <div class="closetContent preDoors">
-    <div class="closetLeft">
-      <div class="closetImage" role="img" aria-label="Princess castle">
-        <img src="images/princess-castle.png" alt="Princess Castle"
-             style="width:100%; height:100%; object-fit:contain;">
-      </div>
-    </div>
-
-    <div class="closetRight">
-      <div class="maisyCard">
-        <img src="images/princess-maisy.png" alt="Princess Maisy"
-             style="width:100%; height:auto; display:block;">
-        <p style="margin:10px 0 0; color: var(--muted); line-height:1.35;">
-          Welcome to the Princess Collection ✨
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Scene B: AFTER doors open -->
-  <div class="closetRoom" hidden>
-    <div class="closetLeft">
-      <div class="closetImage closetInterior" role="img" aria-label="Princess closet interior">
-        <div class="closetTitle">Princess Closet</div>
-        <div class="closetSub">Choose an item ✨</div>
-
-        <div class="shelf">
-          <button class="itemBtn">Onesies</button>
-          <button class="itemBtn">Dresses</button>
-          <button class="itemBtn">Pajamas</button>
-          <button class="itemBtn">Bows</button>
-          <button class="itemBtn">Swaddles</button>
+        <div class="doors" aria-label="Open the closet" role="button" tabindex="0">
+          <div class="door left"></div>
+          <div class="door right"></div>
         </div>
-      </div>
-    </div>
 
-    <div class="closetRight">
-      <div class="maisyCard">
-        <img src="images/princess-maisy.png" alt="Princess Maisy"
-             style="width:100%; height:auto; display:block;">
-        <p style="margin:10px 0 0; color: var(--muted); line-height:1.35;">
-          Pick an item and I’ll bring it to you ✨
-        </p>
+        <!-- Scene A: BEFORE doors open -->
+        <div class="preDoors">
+          <div class="closetLeft">
+            <div class="closetImage" role="img" aria-label="Princess castle">
+              <img src="images/princess-castle.png" alt="Princess Castle" style="width:100%; height:100%; object-fit:contain;">
+            </div>
+          </div>
+
+          <div class="closetRight">
+            <div class="maisyCard">
+              <img src="images/princess-maisy.png" alt="Princess Maisy" style="width:100%; height:auto; display:block;">
+              <p style="margin:10px 0 0; color: var(--muted); line-height:1.35;">
+                Welcome to the Princess Collection ✨
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scene B: AFTER doors open -->
+        <div class="closetRoom" hidden>
+          <div class="closetLeft">
+            <div class="closetImage closetInterior" role="img" aria-label="Princess closet interior">
+              <div class="closetTitle">Princess Closet</div>
+              <div class="closetSub">Choose an item ✨</div>
+
+              <div class="shelf">
+                <button class="itemBtn" type="button">Onesies</button>
+                <button class="itemBtn" type="button">Dresses</button>
+                <button class="itemBtn" type="button">Pajamas</button>
+                <button class="itemBtn" type="button">Bows</button>
+                <button class="itemBtn" type="button">Swaddles</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="closetRight">
+            <div class="maisyCard">
+              <img src="images/princess-maisy.png" alt="Princess Maisy" style="width:100%; height:auto; display:block;">
+              <p style="margin:10px 0 0; color: var(--muted); line-height:1.35;">
+                Pick an item and I’ll bring it to you ✨
+              </p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
+</div>
 <script>
   // ===== Base app (tabs + cards) =====
   const viewEl = document.getElementById("view");
