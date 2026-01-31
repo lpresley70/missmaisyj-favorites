@@ -121,7 +121,91 @@
       padding:0 18px 28px;
       color:var(--muted);
       font-size:.92rem;
-    }
+    }/* ===== Princess Overlay (Phase 1) ===== */
+.overlay{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+}
+
+.overlayBackdrop{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(4px);
+}
+
+.overlayCard{
+  position: relative;
+  width: min(980px, 92vw);
+  max-height: 88vh;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--sand);
+  border-radius: calc(var(--radius) + 6px);
+  box-shadow: 0 22px 70px rgba(0,0,0,.22);
+}
+
+.overlayHeader{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 14px 10px;
+  border-bottom: 1px solid var(--sand);
+}
+
+.closeBtn{
+  border: 1px solid var(--sand);
+  background: #fff;
+  border-radius: 12px;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.overlayBody{
+  padding: 14px;
+}
+
+.closetStage{
+  border: 1px solid var(--sand);
+  border-radius: var(--radius);
+  background: radial-gradient(900px 500px at 20% 0%, #ffffff 0%, var(--bg) 60%);
+  padding: 14px;
+  position: relative;
+}
+
+.closetContent{
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.closetImage{
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+  border: 1px dashed var(--sand);
+  background: linear-gradient(135deg, #f6f3ee, #ffffff);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.maisyCard{
+  border: 1px solid var(--sand);
+  border-radius: var(--radius);
+  padding: 12px;
+  background: #fff;
+}
+
+@media (max-width: 860px){
+  .closetContent{ grid-template-columns: 1fr; }
+}
   </style>
 </head>
 <body>
