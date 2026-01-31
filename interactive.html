@@ -450,7 +450,6 @@
     </div>
 
 <div class="closetStage">
-
   <div class="tapHint">Tap the doors to open</div>
 
   <div class="doors">
@@ -639,8 +638,12 @@
     document.body.style.overflow = "hidden";
 
     if (closetStage) closetStage.classList.remove("open");
-    if (preDoors) preDoors.hidden = false;
-    if (closetRoom) closetRoom.hidden = true;
+const preDoorsEl = closetStage?.querySelector(".preDoors");
+const closetRoomEl = closetStage?.querySelector(".closetRoom");
+
+if (preDoorsEl) preDoorsEl.hidden = true;
+if (closetRoomEl) closetRoomEl.hidden = false;
+[hidden] { display: none !important; }
   }
 
   function closePrincessOverlay(){
