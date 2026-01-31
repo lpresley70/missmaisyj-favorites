@@ -218,7 +218,74 @@
 
 @media (max-width: 860px){
   .closetContent{ grid-template-columns: 1fr; }
-}/* ===== Phase 3: Castle Doors ===== */
+}//* ===== Scene switching (Phase 3.5) ===== */
+.preDoors{
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.closetRoom{
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 14px;
+  align-items: start;
+}
+
+/* Closet interior placeholder panel */
+.closetInterior{
+  background: radial-gradient(700px 450px at 25% 10%, #ffffff 0%,
+    rgba(233,227,215,.55) 55%,
+    rgba(154,168,143,.16) 100%);
+  border: 1px solid var(--sand);
+  position: relative;
+}
+
+.closetTitle{
+  position:absolute;
+  left: 14px;
+  top: 14px;
+  font-weight: 800;
+  color: #2d3a2b;
+  background: rgba(255,255,255,.78);
+  border: 1px solid var(--sand);
+  padding: 8px 10px;
+  border-radius: 999px;
+}
+
+.closetSub{
+  position:absolute;
+  left: 14px;
+  top: 58px;
+  color: var(--muted);
+  background: rgba(255,255,255,.65);
+  border: 1px solid var(--sand);
+  padding: 8px 10px;
+  border-radius: 999px;
+  font-weight: 650;
+}
+
+.shelf{
+  position:absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.itemBtn{
+  border: 1px solid var(--sand);
+  background: rgba(255,255,255,.85);
+  border-radius: 999px;
+  padding: 10px 12px;
+  cursor: pointer;
+  font-weight: 700;
+  color: #2d3a2b;
+}
+ ===== Phase 3: Castle Doors ===== */
 .doors{
   position: absolute;
   inset: 14px;
@@ -340,34 +407,53 @@
     </div>
 
     <div class="overlayBody">
-     <div class="closetStage">
 
-  <div class="tapHint">Tap the doors to open</div>
-
-  <div class="doors" aria-hidden="true">
-    <div class="door left"></div>
-    <div class="door right"></div>
+<!-- Scene A: what you see BEFORE doors open (optional) -->
+<div class="closetContent preDoors">
+  <div class="closetLeft">
+    <div class="closetImage" role="img" aria-label="Princess castle">
+      <img src="images/princess-castle.png" alt="Princess Castle"
+           style="width:100%; height:100%; object-fit:contain;">
+    </div>
   </div>
 
-  <div class="closetContent">
-    <div class="closetLeft">
-      <div class="closetImage" role="img" aria-label="Princess castle">
-        <img src="images/princess-castle.png" alt="Princess Castle"
-             style="width:100%; height:100%; object-fit:contain;">
+  <div class="closetRight">
+    <div class="maisyCard">
+      <img src="images/princess-maisy.png" alt="Princess Maisy" style="width:100%; height:auto; display:block;">
+      <p style="margin:10px 0 0; color: var(--muted); line-height:1.35;">
+        Welcome to the Princess Collection ✨
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Scene B: the CLOSET (hidden until doors open) -->
+<div class="closetRoom" hidden>
+  <div class="closetLeft">
+    <div class="closetImage closetInterior" role="img" aria-label="Princess closet interior">
+      <div class="closetTitle">Princess Closet</div>
+      <div class="closetSub">Choose an item ✨</div>
+
+      <!-- placeholder shelf items (Phase 4 will upgrade these) -->
+      <div class="shelf">
+        <button class="itemBtn">Onesies</button>
+        <button class="itemBtn">Dresses</button>
+        <button class="itemBtn">Pajamas</button>
+        <button class="itemBtn">Bows</button>
+        <button class="itemBtn">Swaddles</button>
       </div>
     </div>
-   
+  </div>
 
-          <div class="closetRight">
-            <div class="maisyCard">
-              <img src="images/princess-maisy.png" alt="Princess Maisy" style="width:100%; height:auto; display:block;">
-              <p style="margin:10px 0 0; color: var(--muted); line-height:1.35;">
-                Welcome to the Princess Collection ✨
-              </p>
-            </div>
-          </div>
-        </div>
-
+  <div class="closetRight">
+    <div class="maisyCard">
+      <img src="images/princess-maisy.png" alt="Princess Maisy" style="width:100%; height:auto; display:block;">
+      <p style="margin:10px 0 0; color: var(--muted); line-height:1.35;">
+        Pick an item and I’ll bring it to you ✨
+      </p>
+    </div>
+  </div>
+</div>
       </div>
     </div>
   </div>
@@ -567,14 +653,28 @@ function closePrincessOverlay(){
   princessOverlay.setAttribute("aria-hidden", "true");
   princessOverlay.style.display = "none";
   document.body.style.overflow = "";
+
   closetStage.classList.remove("open");
+
+  if (preDoors) preDoors.hidden = false;
+  if (closetRoom) closetRoom.hidden = true;
 }
   
+const closetRoom = princessOverlay.querySelector(".closetRoom");
+const preDoors = princessOverlay.querySelector(".preDoors");
+
 doorsEl.addEventListener("click", (e) => {
   e.preventDefault();
   e.stopPropagation();
   e.stopImmediatePropagation();
+
   closetStage.classList.add("open");
+
+  // After doors finish sliding (900ms), switch to closet room
+  setTimeout(() => {
+    if (preDoors) preDoors.hidden = true;
+    if (closetRoom) closetRoom.hidden = false;
+  }, 900);
 });
   
 closePrincessBtn.addEventListener("click", (e) => {
