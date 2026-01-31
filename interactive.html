@@ -643,7 +643,7 @@ const closetRoomEl = closetStage?.querySelector(".closetRoom");
 
 if (preDoorsEl) preDoorsEl.hidden = true;
 if (closetRoomEl) closetRoomEl.hidden = false;
-[hidden] { display: none !important; }
+
   }
 
   function closePrincessOverlay(){
@@ -683,17 +683,22 @@ if (closetRoomEl) closetRoomEl.hidden = false;
   });
 
   // Doors click -> open animation -> switch scene
-  if (doorsEl) doorsEl.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+if (doorsEl) doorsEl.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
 
-    if (closetStage) closetStage.classList.add("open");
+  // HIDE Scene A immediately (castle + Princess)
+  if (preDoors) preDoors.style.display = "none";
 
-    setTimeout(() => {
-      if (preDoors) preDoors.hidden = true;
-      if (closetRoom) closetRoom.hidden = false;
-    }, 900);
-  });
+  // OPEN the doors
+  if (closetStage) closetStage.classList.add("open");
+
+  // SHOW Scene B after doors finish opening
+  setTimeout(() => {
+    if (closetRoom) closetRoom.hidden = false;
+  }, 900);
+});
+
 </script>
 </body>
 </html>
