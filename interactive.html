@@ -379,33 +379,6 @@
 .closetStage.open .door.left{ transform: translateX(-106%); }
 .closetStage.open .door.right{ transform: translateX(106%); }
 .closetStage.open .tapHint{ opacity: 0; }
-/* ===== DOOR VISIBILITY TEST (temporary) ===== */
-.closetStage{
-  min-height: 420px;       /* gives the doors space */
-  position: relative;
-  overflow: hidden;
-}
-
-.doors{
-  position: absolute;
-  inset: 14px;
-  z-index: 50;
-}
-
-.door{
-  position: absolute;
-  top: 0;
-  width: 50%;
-  height: 100%;
-  background: rgba(255, 0, 0, .25);   /* bright red tint so we can SEE it */
-  border: 4px solid red;
-}
-
-.door.left{ left: 0; }
-.door.right{ right: 0; }
-
-.closetStage.open .door.left{ transform: translateX(-104%); transition: transform 900ms ease; }
-.closetStage.open .door.right{ transform: translateX(104%); transition: transform 900ms ease; }
 
   </style>
 </head>
@@ -621,73 +594,87 @@
   tabs.forEach(btn => btn.addEventListener("click", () => render(btn.dataset.view)));
   render("home");
 
-  // ===== Princess Overlay =====
-  const princessOverlay = document.getElementById("princessOverlay");
-  const closePrincessBtn = document.getElementById("closePrincess");
-  const overlayCard = princessOverlay ? princessOverlay.querySelector(".overlayCard") : null;
+ // ===== Princess Overlay (CLEAN + WORKING) =====
+const princessOverlay = document.getElementById("princessOverlay");
+const closePrincessBtn = document.getElementById("closePrincess");
+const overlayCard = princessOverlay ? princessOverlay.querySelector(".overlayCard") : null;
 
-  const closetStage = princessOverlay ? princessOverlay.querySelector(".closetStage") : null;
-  const doorsEl = princessOverlay ? princessOverlay.querySelector(".doors") : null;
-  const closetRoom = princessOverlay ? princessOverlay.querySelector(".closetRoom") : null;
-  const preDoors = princessOverlay ? princessOverlay.querySelector(".preDoors") : null;
+const closetStage = princessOverlay ? princessOverlay.querySelector(".closetStage") : null;
+const doorsEl = princessOverlay ? princessOverlay.querySelector(".doors") : null;
+const closetRoom = princessOverlay ? princessOverlay.querySelector(".closetRoom") : null;
+const preDoors = princessOverlay ? princessOverlay.querySelector(".preDoors") : null;
 
-  function openPrincessOverlay(){
-    if (!princessOverlay) return;
+function openPrincessOverlay(){
+  if (!princessOverlay) return;
+  princessOverlay.hidden = false;
+  princessOverlay.setAttribute("aria-hidden","false");
+  document.body.style.overflow = "hidden";
 
-    princessOverlay.hidden = false;
-    princessOverlay.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
+  if (closetStage) closetStage.classList.remove("open");
+  if (preDoors) preDoors.hidden = false;
+  if (closetRoom) closetRoom.hidden = true;
+}
 
-    if (closetStage) closetStage.classList.remove("open");
-    if (preDoors) {
-      preDoors.hidden = false;
-      preDoors.style.display = "";
-    }
-    if (closetRoom) closetRoom.hidden = true;
+function closePrincessOverlay(){
+  if (!princessOverlay) return;
+  princessOverlay.hidden = true;
+  princessOverlay.setAttribute("aria-hidden","true");
+  document.body.style.overflow = "";
+
+  if (closetStage) closetStage.classList.remove("open");
+  if (preDoors) preDoors.hidden = false;
+  if (closetRoom) closetRoom.hidden = true;
+}
+
+// click on the card in the princess tab
+viewEl.addEventListener("click", (e) => {
+  const castleCard = e.target.closest("#princessCastle");
+  if (castleCard) openPrincessOverlay();
+});
+
+// stop clicks inside modal from closing it
+if (overlayCard) overlayCard.addEventListener("click", (e) => e.stopPropagation());
+
+// close button
+if (closePrincessBtn) closePrincessBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  closePrincessOverlay();
+});
+
+// click outside card closes
+if (princessOverlay) princessOverlay.addEventListener("click", (e) => {
+  if (e.target.classList.contains("overlayBackdrop")) closePrincessOverlay();
+});
+
+// escape closes
+window.addEventListener("keydown", (e) => {
+  if (princessOverlay && !princessOverlay.hidden && e.key === "Escape") closePrincessOverlay();
+});
+
+// doors open + switch scene
+function openDoors(){
+  if (!closetStage) return;
+  closetStage.classList.add("open");
+
+  setTimeout(() => {
+    if (preDoors) preDoors.hidden = true;
+    if (closetRoom) closetRoom.hidden = false;
+  }, 900);
+}
+
+if (doorsEl) doorsEl.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  openDoors();
+});
+
+// allow Enter/Space on doors
+if (doorsEl) doorsEl.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    openDoors();
   }
-
-  function closePrincessOverlay(){
-    if (!princessOverlay) return;
-
-    princessOverlay.hidden = true;
-    princessOverlay.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
-
-    if (closetStage) closetStage.classList.remove("open");
-    if (preDoors) {
-      preDoors.hidden = false;
-      preDoors.style.display = "";
-    }
-    if (closetRoom) closetRoom.hidden = true;
-  }
-
-  // Click on castle card opens overlay
-  viewEl.addEventListener("click", (e) => {
-    const castleCard = e.target.closest("#princessCastle");
-    if (castleCard) openPrincessOverlay();
-  });
-
-  // Prevent clicks inside the card from bubbling
-  if (overlayCard) overlayCard.addEventListener("click", (e) => e.stopPropagation());
-
-  // Close button
-  if (closePrincessBtn) closePrincessBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    closePrincessOverlay();
-  });
-
-  // Backdrop click closes
-  if (princessOverlay) princessOverlay.addEventListener("click", (e) => {
-    if (e.target.classList.contains("overlayBackdrop")) closePrincessOverlay();
-  });
-
-  // Escape closes
-  window.addEventListener("keydown", (e) => {
-    if (princessOverlay && !princessOverlay.hidden && e.key === "Escape") closePrincessOverlay();
-  });
-
-  // Doors click -> open animation -> switch scene
-  if (doorsEl) doorsEl.addEventListener("click", (e) => {
+});
     e.preventDefault();
     e.stopPropagation();
 
