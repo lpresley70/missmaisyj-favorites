@@ -765,11 +765,6 @@ function openDoors(){
   if (closetRoom) closetRoom.hidden = false;
 }
 
-setTimeout(() => {
-  if (preDoors) preDoors.hidden = true;
-  if (closetRoom) closetRoom.hidden = false;
-}, 1100);
-}
 
 if (doorsEl) doorsEl.addEventListener("click", (e) => {
   e.preventDefault();
