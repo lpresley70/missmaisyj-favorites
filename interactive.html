@@ -754,7 +754,16 @@ window.addEventListener("keydown", (e) => {
 // doors open + switch scene
 function openDoors(){
   if (!closetStage) return;
+
+  // start door animation
   closetStage.classList.add("open");
+
+  // hide Scene A (before doors)
+  if (preDoors) preDoors.hidden = true;
+
+  // show Scene B (closet) behind the doors
+  if (closetRoom) closetRoom.hidden = false;
+}
 
 setTimeout(() => {
   if (preDoors) preDoors.hidden = true;
